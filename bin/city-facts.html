@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Facts</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Weather</a></li>
+            <li><a href="city-facts.html">City Facts</a></li>
+            <li><a href="moon-sun.html">Moon and Sun 3D</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        <h1>City Facts</h1>
+        <form id="city-facts-form">
+            <input type="text" id="city" placeholder="Enter city name" required>
+            <button type="submit">Get City Facts</button>
+        </form>
+        
+        <div id="city-facts-result">
+            <!-- City facts will be displayed here -->
+        </div>
+    </div>
+    
+    <script>
+        const form = document.getElementById('city-facts-form');
+        const resultDiv = document.getElementById('city-facts-result');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();  // Prevent page refresh
+            const city = document.getElementById('city').value;
+            getCityFacts(city);  // Fetch city facts based on user input
+        });
+
+        function getCityFacts(city) {
+            const url = `https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&exintro&explaintext&titles=${city}&origin=*`;
+            
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const pages = data.query.pages;
+                    const page = Object.values(pages)[0];  // Get the first page
+                    if (page.missing) {
+                        resultDiv.innerHTML = `<p>City facts not found. Please try a different city.</p>`;
+                    } else {
+                        displayCityFacts(city, page.extract);  // Call function to display facts
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching city facts:', error);
+                    resultDiv.innerHTML = `<p>Something went wrong. Please try again later.</p>`;
+                });
+        }
+
+        function displayCityFacts(city, facts) {
+            resultDiv.innerHTML = `
+                <h2>Facts about ${city}</h2>
+                <p>${facts}</p>
+            `;
+        }
+    </script>
+</body>
+</html>
