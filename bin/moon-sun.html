@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moon and Sun 3D Model</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+
+<body>Weath
     <nav>
         <ul>
             <li><a href="index.html">Weather</a></li>
@@ -14,12 +16,12 @@
             <li><a href="moon-sun.html">Moon and Sun 3D</a></li>
         </ul>
     </nav>
-    
+
     <div class="container">
         <h1>Current Position of the Earth, Moon, and Sun</h1>
         <div id="threejs-container" style="width: 100%; height: 600px;"></div> <!-- Ensure the height is set -->
     </div>
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 
@@ -79,11 +81,11 @@
         // Animation loop
         function animate() {
             requestAnimationFrame(animate);
-            
+
             // Rotate the Earth and the Moon
             earth.rotation.y += 0.01;  // Rotate Earth
             moon.rotation.y += 0.02;   // Rotate Moon faster
-            
+
             renderer.render(scene, camera);
             controls.update();  // Update controls
         }
@@ -97,4 +99,5 @@
         });
     </script>
 </body>
+
 </html>
